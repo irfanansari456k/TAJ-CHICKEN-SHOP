@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Taj Chicken Shop Admin</title><link rel="stylesheet" href="style.css">
+<style>body{background:#f1efe8}.panel{max-width:760px;margin:50px auto;padding:0 20px}.box{background:#fff;border:1px solid #e5e1d8;border-radius:22px;padding:30px;margin-top:20px}.row{display:grid;grid-template-columns:1fr 160px;gap:12px;align-items:center;margin:14px 0}input{width:100%;padding:12px;border:1px solid #ccc;border-radius:9px;font-size:16px}.note{background:#fff5d9;padding:14px;border-radius:12px;margin-top:18px;font-size:13px;color:#62511f}</style>
+</head><body>
+<header class="topbar"><a class="brand" href="index.html"><span class="brandIcon">🐔</span><span><b>TAJ CHICKEN SHOP</b><small>ADMIN DASHBOARD</small></span></a><a class="call" href="index.html">View Website</a></header>
+<main class="panel"><span class="eyebrow dark">PRIVATE ADMIN</span><h1 style="font-size:48px;margin:8px 0">Today's Rates</h1><p>For shop owner/admin use.</p>
+<div class="box"><h2>Today's Rates</h2><div id="fields"></div><button class="btn red" onclick="save()">Save Changes</button><button class="btn" style="border:1px solid #ccc;margin-left:8px" onclick="resetR()">Reset</button>
+<div class="note">Demo only: rates are stored in this browser. The production version will use secure login + cloud database so Arif Bhai can update rates/photos from any phone while customers remain view-only.</div></div>
+<div class="box"><h2>Future Content Uploads</h2><p>Owner photo, UPI QR and product/shop photos can be added here later. This prototype shows the planned controls.</p><div class="row"><b>Owner Photo</b><input type="file" accept="image/*"></div><div class="row"><b>UPI QR Code</b><input type="file" accept="image/*"></div><div class="row"><b>Product / Shop Photos</b><input type="file" accept="image/*" multiple></div></div>
+</main>
+<script>
+const d=[{name:"Boiler Kata Hua",price:250,icon:"🍗"},{name:"Khada Boiler",price:160,icon:"🐔"},{name:"Cockrel",price:250,icon:"🐓"},{name:"Layer",price:200,icon:"🐔"},{name:"Desi Chicken",price:400,icon:"🐓"}];
+function get(){try{return JSON.parse(localStorage.getItem("tajRates"))||d}catch{return d}}function draw(){fields.innerHTML=get().map((x,i)=>`<div class="row"><b>${x.icon} ${x.name}</b><input id="p${i}" type="number" min="0" value="${x.price}"></div>`).join("")}
+function save(){localStorage.setItem("tajRates",JSON.stringify(get().map((x,i)=>({...x,price:Number(document.getElementById("p"+i).value)||0}))));alert("Saved. Open the website to see the updated rates.")}
+function resetR(){localStorage.removeItem("tajRates");draw()}draw();
+</script></body></html>
